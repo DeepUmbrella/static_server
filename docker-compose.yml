@@ -1,0 +1,27 @@
+version: "0.0.1"
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  static-server:
+    image: nginx:latest
+    container_name: static-server
+    networks:
+      - default
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./page/404.html:/usr/share/nginx/html/404.html:ro
+      - ~/nginx-static/images:/usr/share/nginx/html/images
+      - ~/nginx-static/medias:/usr/share/nginx/html/medias
+      - ~/nginx-static/assets:/usr/share/nginx/html/assets
+      - ~/nginx-static/js:/usr/share/nginx/html/js
+      - ~/nginx-static/css:/usr/share/nginx/html/css
+      - ~/nginx-static/stream:/usr/share/nginx/html/stream
+    environment:
+      - StaticHost=8000
+
+    ports:
+      - 8000:80
+    restart: always
