@@ -1,15 +1,13 @@
-version: "0.0.1"
-
 networks:
-  default:
-    driver: bridge
+  shared_network:
+    external: true
 
 services:
   static-server:
     image: nginx:latest
     container_name: static-server
     networks:
-      - default
+      - shared_network
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./page/404.html:/usr/share/nginx/html/404.html:ro
